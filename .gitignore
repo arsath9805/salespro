@@ -1,0 +1,32 @@
+# ======================
+# React
+# ======================
+frontend/node_modules/
+frontend/build/
+
+# ======================
+# Python
+# ======================
+backend/__pycache__/
+backend/*.pyc
+
+# Ignore only if model files can be regenerated
+# backend/*.pkl
+
+# ======================
+# Environment Variables
+# ======================
+.env
+.env.local
+
+# ======================
+# VS Code
+# ======================
+.vscode/
+
+# ======================
+# OS Files
+# ======================
+.DS_Store
+Thumbs.db
+dataset/serviceAccountKey.json

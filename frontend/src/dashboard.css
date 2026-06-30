@@ -1,0 +1,212 @@
+/* =========================
+   GLOBAL
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* =========================
+   DASHBOARD THEMES
+========================= */
+
+.dashboard {
+  min-height: 100vh;
+}
+
+.light {
+  background: #f8fafc;
+  color: #111827;
+}
+
+.dark {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+  width: 230px;
+  min-height: 100vh;
+  background: #1f2933;
+  color: #f1f5f9;
+  padding: 24px 18px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-text {
+  font-size: 22px;
+  font-weight: bold;
+  color: #e5e7eb;
+  margin-bottom: 40px;
+}
+
+/* Navigation */
+.sidebar-nav {
+  flex: 1;
+}
+
+.nav-link {
+  display: block;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  color: #e5e7eb;
+  text-decoration: none;
+  font-size: 15px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.nav-link:hover {
+  background: #374151;
+  transform: translateX(4px);
+}
+
+.nav-link.active {
+  background: #4b5563;
+  font-weight: 600;
+}
+
+/* =========================
+   LOGOUT (TEXT + ICON ONLY)
+========================= */
+
+.logout-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #e5e7eb;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: auto;
+  padding: 10px 6px;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.logout-link:hover {
+  background: #374151;
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.dashboard-content {
+  margin-left: 250px;
+  padding: 24px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.toggle-btn {
+  padding: 10px 18px;
+  border-radius: 20px;
+  border: none;
+  background: #4b5563;
+  color: white;
+  cursor: pointer;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card {
+  background: white;
+  padding: 22px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.dark .card {
+  background: #f9fafb;
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profile img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+
+/* =========================
+   CHARTS
+========================= */
+
+.charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+  }
+
+  .dashboard-content {
+    margin-left: 0;
+  }
+}
+.logout-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #e5e7eb;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: auto;
+  padding: 10px 8px;
+  border-radius: 8px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.logout-link svg {
+  stroke: #e5e7eb;
+}
+
+.logout-link:hover {
+  background: #374151;
+  color: #ffffff;
+}
+
+.logout-link:hover svg {
+  stroke: #ffffff;
+}
