@@ -7,8 +7,9 @@ frontend/build/
 # ======================
 # Python
 # ======================
-backend/__pycache__/
-backend/*.pyc
+
+**/__pycache__/
+*.pyc
 
 # Ignore only if model files can be regenerated
 # backend/*.pkl
