@@ -817,7 +817,7 @@ function Analytics() {
 
   {topProducts.map((product, index) => (
     <div
-      key={index}
+      key={product.name}
       style={{
         display: "flex",
         justifyContent: "space-between",
@@ -825,13 +825,11 @@ function Analytics() {
         borderBottom: "1px solid #eee",
       }}
     >
-      {topProducts.map((product, index) => (
-      <div key={index}>
-      <span>{product.name}</span>
+      <span>
+        {index + 1}. {product.name}
+      </span>
       <b>{product.sold} sold</b>
-  </div>
-))}
-    </div>
+     </div>
   ))}
 </div>
 

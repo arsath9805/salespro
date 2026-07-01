@@ -80,6 +80,44 @@ function ProductDetails() {
     fetchOrders();
   }, [product]);
 
+  const getProductImage = (productName) => {
+
+  const name = productName.toLowerCase();
+
+  if (name.includes("laptop"))
+    return "/images/laptop.jpg";
+
+  if (name.includes("keyboard"))
+    return "/images/keyboard.jpg";
+
+  if (name.includes("printer"))
+    return "/images/printer.jpg";
+
+  if (name.includes("tablet"))
+    return "/images/tablet.jpg";
+
+  if (name.includes("mouse"))
+    return "/images/mouse.jpg";
+
+  if (name.includes("headphone"))
+    return "/images/headphones.jpg";
+
+  if (name.includes("monitor"))
+    return "/images/monitor.jpg";
+
+  if (name.includes("phone") || name.includes("smartphone"))
+    return "/images/smartphone.jpg";
+
+  if (name.includes("watch") || name.includes("smartwatch"))
+    return "/images/smartwatch.jpg";
+
+  if (name.includes("power bank"))
+    return "/images/powerbank.jpg";
+
+
+  return "/images/default.jpg";
+};
+
   if (!product) {
     return <p className="loading">Loading product...</p>;
   }
@@ -91,9 +129,13 @@ function ProductDetails() {
         {/* IMAGE */}
         <div className="image-box">
           <img
-            src={`https://via.placeholder.com/420?text=${product.product_name}`}
-            alt={product.product_name}
-          />
+  src={getProductImage(product.product_name)}
+  alt={product.product_name}
+  className="product-detail-image"
+  onError={(e) => {
+    e.target.src = "/images/default.jpg";
+  }}
+/>
         </div>
 
         {/* INFO */}

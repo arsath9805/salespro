@@ -84,11 +84,10 @@
 /* 🖼️ Image container */
 .product-image {
   width: 100%;
-  height: 220px;              /* IMPORTANT */
-  object-fit: contain;        /* Amazon-style */
-  margin-bottom: 12px;
-  background: #f7f7f7;
-  border-radius: 8px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
 }
 
 /* Price */
@@ -135,4 +134,13 @@
   background: #9ca3af;
   cursor: not-allowed;
   opacity: 0.8;
+}
+
+.product-card {
+  transition: all 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }

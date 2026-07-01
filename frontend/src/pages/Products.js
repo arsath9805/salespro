@@ -24,6 +24,19 @@ export default function Products() {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+  setCurrentPage(1);
+}, [
+  search,
+  categoryFilter,
+  brandFilter,
+  sortBy,
+]);
+  
+  useEffect(() => {
+  setCurrentPage(1);
+}, [search, categoryFilter, brandFilter, sortBy]);
+
   const fetchProducts = async () => {
     const snapshot = await getDocs(collection(db, "products"));
 
@@ -34,6 +47,44 @@ export default function Products() {
 
     setProducts(list);
   };
+
+  const getProductImage = (productName) => {
+
+  const name = productName.toLowerCase();
+
+  if (name.includes("laptop"))
+    return "/images/laptop.jpg";
+
+  if (name.includes("keyboard"))
+    return "/images/keyboard.jpg";
+
+  if (name.includes("printer"))
+    return "/images/printer.jpg";
+
+  if (name.includes("tablet"))
+    return "/images/tablet.jpg";
+
+  if (name.includes("mouse"))
+    return "/images/mouse.jpg";
+
+  if (name.includes("headphone"))
+    return "/images/headphones.jpg";
+
+  if (name.includes("monitor"))
+    return "/images/monitor.jpg";
+
+  if (name.includes("phone") || name.includes("smartphone"))
+    return "/images/smartphone.jpg";
+
+  if (name.includes("watch") || name.includes("smartwatch"))
+    return "/images/smartwatch.jpg";
+
+  if (name.includes("power bank"))
+    return "/images/powerbank.jpg";
+
+
+  return "/images/default.jpg";
+};
 
   /* FILTER + SORT */
 
@@ -90,6 +141,11 @@ export default function Products() {
       startIndex + productsPerPage
     );
 
+  const brands = [
+  "All",
+  ...new Set(products.map((p) => p.supplier))
+  ];
+
   return (
     <div className="products-container">
 
@@ -129,21 +185,17 @@ export default function Products() {
         </select>
 
         <select
-          value={brandFilter}
-          onChange={(e) =>
-            setBrandFilter(e.target.value)
-          }
-        >
-          <option>All</option>
-          <option>Sony</option>
-          <option>Samsung</option>
-          <option>Dell</option>
-          <option>HP</option>
-          <option>Apple</option>
-          <option>Lenovo</option>
-          <option>Boat</option>
-          <option>Asus</option>
-        </select>
+  value={brandFilter}
+  onChange={(e) =>
+    setBrandFilter(e.target.value)
+  }
+>
+  {brands.map((brand) => (
+    <option key={brand}>
+      {brand}
+    </option>
+  ))}
+</select>
 
         <select
           value={sortBy}
@@ -172,7 +224,21 @@ export default function Products() {
       {/* PRODUCTS */}
 
       <div className="products-grid">
-        {displayedProducts.map((product) => (
+ 
+          {displayedProducts.length === 0 ? (
+
+    <h2
+      style={{
+        gridColumn: "1 / -1",
+        textAlign: "center",
+      }}
+    >
+      😢 No products found
+    </h2>
+
+  ) : (
+
+    displayedProducts.map((product) => (
           <div
             className="product-card"
             key={product.id}
@@ -182,9 +248,12 @@ export default function Products() {
             style={{ cursor: "pointer" }}
           >
             <img
-              src={`https://via.placeholder.com/250?text=${product.product_name}`}
+              src={getProductImage(product.product_name)}
               alt={product.product_name}
               className="product-image"
+              onError={(e) => {
+                e.target.src = "/images/default.jpg";
+               }}
             />
 
             <h3>{product.product_name}</h3>
@@ -265,7 +334,8 @@ export default function Products() {
                 : "Out of Stock"}
             </button>
           </div>
-        ))}
+        ))
+      )}
       </div>
 
       {/* PAGINATION */}
@@ -278,35 +348,50 @@ export default function Products() {
           justifyContent: "center",
         }}
       >
-        {[...Array(totalPages)].map(
-          (_, index) => (
-            <button
-              key={index}
-              onClick={() =>
-                setCurrentPage(index + 1)
-              }
-              style={{
-                padding:
-                  "10px 15px",
-                borderRadius: "10px",
-                border: "none",
-                background:
-                  currentPage ===
-                  index + 1
-                    ? "#2563eb"
-                    : "#ddd",
-                color:
-                  currentPage ===
-                  index + 1
-                    ? "#fff"
-                    : "#000",
-                cursor: "pointer",
-              }}
-            >
-              {index + 1}
-            </button>
-          )
-        )}
+        <button
+  disabled={currentPage === 1}
+  onClick={() => setCurrentPage(currentPage - 1)}
+>
+  ◀ Previous
+</button>
+
+{[...Array(totalPages)]
+  .map((_, index) => index + 1)
+  .filter(
+    (page) =>
+      page === 1 ||
+      page === totalPages ||
+      Math.abs(page - currentPage) <= 2
+  )
+  .map((page) => (
+    <button
+      key={page}
+      onClick={() => setCurrentPage(page)}
+      style={{
+        padding: "10px 15px",
+        borderRadius: "10px",
+        border: "none",
+        background:
+          currentPage === page
+            ? "#2563eb"
+            : "#ddd",
+        color:
+          currentPage === page
+            ? "#fff"
+            : "#000",
+        cursor: "pointer",
+      }}
+    >
+      {page}
+    </button>
+  ))}
+
+<button
+  disabled={currentPage === totalPages}
+  onClick={() => setCurrentPage(currentPage + 1)}
+>
+  Next ▶
+</button>
       </div>
 
     </div>
